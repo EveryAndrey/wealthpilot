@@ -1,0 +1,84 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot'
+    id 'io.freefair.lombok'
+    id 'io.spring.dependency-management'
+    id 'com.google.cloud.tools.jib'
+}
+
+apply plugin: 'jacoco'
+
+group 'org.example'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+sourceCompatibility = JavaVersion.VERSION_16
+targetCompatibility = JavaVersion.VERSION_16
+
+dependencyManagement {
+
+    imports {
+        mavenBom "org.springframework.boot:spring-boot-dependencies:$VERSION_OF_SPRING_BOOT"
+    }
+
+    dependencies {
+
+        //Logback
+        dependency "net.logstash.logback:logstash-logback-encoder:$VERSION_OF_LOGSTASH_LOGBACK_ENCODER"
+
+        //Apache commons
+        dependency "org.apache.commons:commons-lang3:$VERSION_OF_APACHE_COMMONS_LANG"
+        dependency "org.apache.commons:commons-collections4:$VERSION_OF_APACHE_COMMONS_COLLECTIONS"
+
+        dependency "org.assertj:assertj-core:$VERSION_OF_ASSERTJ"
+
+
+    }
+}
+
+dependencies {
+
+    implementation 'org.springframework.boot:spring-boot-starter:2.6.6'
+
+    annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
+    testImplementation "org.springframework.boot:spring-boot-starter-test"
+
+    //Jackson
+    implementation "com.fasterxml.jackson.datatype:jackson-datatype-jsr310"
+    implementation "com.fasterxml.jackson.module:jackson-module-jaxb-annotations"
+    implementation "com.fasterxml.jackson.datatype:jackson-datatype-joda"
+    implementation "com.fasterxml.jackson.core:jackson-databind"
+
+    //Apache commons
+    implementation "org.apache.commons:commons-lang3"
+    implementation "org.apache.commons:commons-collections4"
+
+    //Validation
+    implementation "org.springframework.boot:spring-boot-starter-validation"
+
+    //Logback
+    implementation "ch.qos.logback:logback-classic"
+    implementation "net.logstash.logback:logstash-logback-encoder"
+
+    //Mockito
+    testImplementation "org.mockito:mockito-junit-jupiter"
+
+    //jupiter
+    testImplementation "org.junit.jupiter:junit-jupiter-api"
+    testImplementation "org.junit.jupiter:junit-jupiter-params"
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine"
+
+    testImplementation "org.assertj:assertj-core"
+
+}
+
+jib {
+    from.image = 'openjdk:16-alpine3.13'
+}
+
+test {
+    useJUnitPlatform()
+}

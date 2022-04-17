@@ -1,0 +1,11 @@
+pluginManagement {
+    plugins {
+        id 'io.freefair.lombok' version VERSION_OF_LOMBOK_PLUGIN
+        id 'io.spring.dependency-management' version VERSION_OF_DEPENDENCY_MANAGEMENT_PLUGIN
+        id 'org.springframework.boot' version VERSION_OF_SPRING_BOOT
+        id 'com.google.cloud.tools.jib' version VERSION_OF_JIB_PLUGIN
+    }
+}
+
+rootProject.name = 'wealthpilot'
+

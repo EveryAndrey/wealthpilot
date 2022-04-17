@@ -1,0 +1,4 @@
+app:
+  break-duration-weeks: 3
+  start-date: 2022-05-03
+  db-url: "db.json"
